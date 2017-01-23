@@ -8,11 +8,11 @@ class GameHelperTest < Minitest::Test
   end
 
   def test_that_file_is_loaded
-    assert_operator @gh.all_words.word_count, :==, 354984
+    assert_operator @gh.all_words.word_count, :==, 351089
   end
 
   def test_length_is_respected
-    assert_operator @gh.all_words.with_word_length(5).count, :==, 15047
+    assert_operator @gh.all_words.with_word_length(5).count, :==, 14847
   end
 
   def test_begins_with
@@ -29,7 +29,7 @@ class GameHelperTest < Minitest::Test
     selected_terms = @gh.all_words.contains(letters)
     # verify every selected_term contains at least one member of letters
     selected_terms.each{ |term|
-      assert letters.any?{ |l| term.include?(l) }
+      assert term.match(/[#{letters.join}]/), "#{term} does not contain #{letters.join(',')}"
     }
   end
 
@@ -38,7 +38,18 @@ class GameHelperTest < Minitest::Test
     selected_terms = @gh.all_words.does_not_contain(letters)
     # verify every selected_term contains none of letters
     selected_terms.each{ |term|
-      assert letters.none?{ |l| term.include?(l) }
+      assert term.match(/[^#{letters.join}]/), "#{term} contains #{letters.join(',')}"
     }
   end
+
+  def test_case_1
+    terms = @gh.all_words.with_word_length(5).begins_with('e').does_not_contain('x')
+    assert terms.all?{ |term| term.size == 5 && term.match(/\Ae[^x]{4}\z/) }
+  end
+
+  def test_case_2
+    terms = @gh.all_words.with_word_length(6).begins_with('e','a').does_not_contain('y','i')
+    assert terms.all?{ |term| term.size == 6 && term.match(/\A[ea][^iy]{5}\z/) }
+  end 
+
 end

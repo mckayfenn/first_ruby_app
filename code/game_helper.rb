@@ -30,9 +30,14 @@ class GameHelper
     # @all_words variable ahead of assigning it.
 
     # remove the line returns and such
-    @all_words.map!{ |w| w.strip }
+    @all_words.map!{ |term| term.strip }
     # see how I used map! instead of map...I wanted
     # the mapping to change the object I called it on.
+
+    # remove any words with internal punctuation
+    @all_words.delete_if{ |term| 
+      term.match(/\W/)
+    }
   end
 
 end
@@ -78,7 +83,7 @@ class Array
 
   # filter the words to only those that contain
   # at least one of the passed-in letters
-  def contains(list_of_possible_letters)
+  def contains(*list_of_possible_letters)
     self.select{ |term|
       list_of_possible_letters.any?{ |letter|
         term.match(/#{letter}/)
@@ -88,7 +93,7 @@ class Array
 
   # filter the words to only those that do not
   # contain any of the passed-in letters
-  def does_not_contain(list_of_possible_letters)
+  def does_not_contain(*list_of_possible_letters)
     self.select{ |term|
       list_of_possible_letters.none?{ |letter|
         term.match(/#{letter}/)
