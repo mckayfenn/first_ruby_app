@@ -4,4 +4,4 @@ machine:
 
 test:
   override:
-    - ruby code/game_helper_test.rb
+    - ruby ./code/game_helper_test.rb
