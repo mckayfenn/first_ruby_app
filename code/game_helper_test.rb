@@ -52,4 +52,14 @@ class GameHelperTest < Minitest::Test
     assert terms.all?{ |term| term.size == 6 && term.match(/\A[ea][^iy]{5}\z/) }
   end 
 
+  # def test_case_3
+  #   terms = @gh.all_words.with_word_length(6).begins_with('e').char_count_less_than('e',2).does_not_contain('y')
+  #   assert terms.all?{ |term| term_size == 6 && term.match(/\Ae[^ey]{5}\z/)}
+  # end
+
+  # def test_case_4
+  #   terms = @gh.all_words.with_word_length(4,5).contain('y').does_not_end_with('y')
+  #   assert terms.all?{ |term| [4,5].include?(term.size) && term.match(/y/) && term.match(/[^y]\z/) }
+  # end
+
 end
