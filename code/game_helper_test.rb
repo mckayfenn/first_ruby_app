@@ -38,7 +38,7 @@ class GameHelperTest < Minitest::Test
     selected_terms = @gh.all_words.does_not_contain(letters)
     # verify every selected_term contains none of letters
     selected_terms.each{ |term|
-      assert term.match(/[^#{letters.join}]/), "#{term} contains #{letters.join(',')}"
+      assert term.match(/\A[^#{letters.join}]\z/), "#{term} contains #{letters.join(',')}"
     }
   end
 

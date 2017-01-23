@@ -68,7 +68,7 @@ class Array
 
   # filter the words to only those with size = len
   def with_word_length(len)
-    self.select{ |w| w.length == len }
+    self.select{ |term| term.length == len }
   end
 
   # filter the words to only those that start with
