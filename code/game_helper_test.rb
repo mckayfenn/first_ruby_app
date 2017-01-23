@@ -41,12 +41,4 @@ class GameHelperTest < Minitest::Test
       assert letters.none?{ |l| term.include?(l) }
     }
   end
-
-end
-
-
-class String
-  def palindrome?
-    self == self.reverse
-  end
 end
